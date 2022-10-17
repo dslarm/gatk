@@ -62,9 +62,6 @@ public class GATKWDLDoclet extends WDLDoclet {
      * @param rootDoc
      * @throws IOException
      */
-    public static boolean start(final com.sun.javadoc.RootDoc rootDoc) throws IOException {
-        return new GATKWDLDoclet().startProcessDocs(rootDoc);
-    }
 
     /**
      * @return the location where the build is running; used in the cromwell validation tests to generate a dummy
@@ -92,23 +89,6 @@ public class GATKWDLDoclet extends WDLDoclet {
      * @param clazz class of the target feature
      * @return DocWorkUnit to be used for this feature
      */
-    @Override
-    protected DocWorkUnit createWorkUnit(
-            final DocumentedFeature documentedFeature,
-            final com.sun.javadoc.ClassDoc classDoc,
-            final Class<?> clazz)
-    {
-        return includeInDocs(documentedFeature, classDoc, clazz) ?
-                // for WDL we don't need to customize the work unit, only the handler, so just use the
-                // Barclay default WorkUnit class
-                new DocWorkUnit(
-                    new GATKWDLWorkUnitHandler(this),
-                    documentedFeature,
-                    classDoc,
-                    clazz) :
-                null;
-    }
-
     @Override
     protected void processWorkUnitTemplate(
             final Configuration cfg,

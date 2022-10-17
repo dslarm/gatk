@@ -15,26 +15,23 @@ import org.broadinstitute.hellbender.utils.runtime.RuntimeUtils;
  * which may not be present since they're not provided as part of the normal GATK runtime classpath.
  */
 @SuppressWarnings("removal")
-public class GATKDocWorkUnit extends DocWorkUnit {
-
+public class GATKDocWorkUnit  {
+	Class<?> clazz;
     public GATKDocWorkUnit(
             final DocWorkUnitHandler workUnitHandler,
             final DocumentedFeature documentedFeatureAnnotation,
-            final com.sun.javadoc.ClassDoc classDoc,
+            final Object   classDoc,
             final Class<?> clazz) {
-        super(workUnitHandler, documentedFeatureAnnotation, classDoc, clazz);
-    }
+    this.clazz = clazz; }
 
-    @Override
     public String getName() {
         // Override getName to return a display name that annotates Picard tool names with " (Picard)"
-        return RuntimeUtils.toolDisplayName(getClazz());
+        return RuntimeUtils.toolDisplayName(clazz);
     }
 
     /**
      * Sort in order of the name of this WorkUnit
      */
-    @Override
     public int compareTo(DocWorkUnit other) {
         return this.getName().compareTo(other.getName());
     }
